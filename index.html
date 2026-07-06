@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linkoo - Store With Cash Back</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-
     <style>
+    /* Baris 7-14 */
+    html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Menghalang skrin daripada meluncur ke kanan */
+    }
+
+    * {
+        box-sizing: border-box; /* Memastikan padding tidak menambah lebar elemen */
+        max-width: 100%; /* Memastikan tiada elemen yang lebih lebar daripada skrin */
+    }
+</style>
         /* Tetapan Pembolehubah Warna Asli Mengikut VS Code Anda */
         :root {
             --primary-teal: #00a896;
@@ -411,20 +418,17 @@
                 <div class="card-title">
                     <i class="fa-solid fa-circle-play"></i> Panduan Video Tutorial
                 </div>
-                <div class="grid-links triple">
-                    <a id="vlink1" href="https://www.youtube.com" target="_blank" class="action-card-btn">
-                        <i class="fa-brands fa-youtube icon-youtube"></i>
-                        <span>Video 1</span>
-                    </a>
-                    <a id="vlink2" href="https://www.youtube.com" target="_blank" class="action-card-btn">
-                        <i class="fa-brands fa-youtube icon-youtube"></i>
-                        <span>Video 2</span>
-                    </a>
-                    <a id="vlink3" href="https://www.youtube.com" target="_blank" class="action-card-btn">
-                        <i class="fa-brands fa-youtube icon-youtube"></i>
-                        <span>Video 3</span>
-                    </a>
-                </div>
+                <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 10px;">
+    <div style="width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/wwdErx11Kz8" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div style="width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/RS8_gy15KTY" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div style="width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <iframe width="100%" height="250" src="https://www.youtube.com/embed/fGEnYdyqOrY" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div> 
             </div>
 
             <div class="tone-wow-box">
@@ -464,18 +468,19 @@
         </div>
 
         <nav class="bottom-navbar">
-            <a href="index.html" class="nav-link-item active">
-                <i class="fa-solid fa-house"></i>
-                <span>Utama</span>
-            </a>
-            <a href="academy.html" class="nav-link-item">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span>Academy</span>
-            </a>
-            <a href="dashboard.html" class="nav-link-item">
-                <i class="fa-solid fa-user-gear"></i>
-                <span>Admin</span>
-            </a>
+  <a href="index.html" class="nav-link-item">
+    <i class="fa-solid fa-house"></i>
+    <span>Utama</span>
+  </a>
+  <a href="academy.html" class="nav-link-item">
+    <i class="fa-solid fa-graduation-cap"></i>
+    <span>Academy</span>
+  </a>
+  <a href="dashboard.html" class="nav-link-item">
+    <i class="fa-solid fa-user-gear"></i>
+    <span>Admin</span>
+  </a>
+</nav>
         </nav>
 
     </div>
@@ -505,7 +510,7 @@
             if (typeof Pi !== 'undefined') {
                 Pi.init({ 
                     version: "2.0", 
-                    sandbox: true,
+                    sandbox: true, 
                     onIncompletePaymentFound: function(payment) {
                         console.log("Pembayaran tertangguh:", payment);
                     }
@@ -541,5 +546,23 @@
             });
         }
     </script>
+  <body>
+    <button onclick="signInWithPi()" class="btn-pi">
+        <i class="fa-solid fa-wallet"></i> Sign-In with Pi Browser
+    </button>
+
+    <script>
+        async function signInWithPi() {
+            try {
+                const user = await Pi.authenticate(['username'], onIncompletePaymentFound, onAuthCancelled);
+                alert('Selamat datang, ' + user.username);
+            } catch (err) {
+                console.error('Autentikasi gagal:', err);
+                alert('Login dibatalkan atau gagal.');
+            }
+        }
+
+        function onIncompletePaymentFound(payment) { /* pengendalian pembayaran */ }
+        function onAuthCancelled() { alert('Login dibatalkan oleh pengguna.'); }
+    </script>
 </body>
-</html>
