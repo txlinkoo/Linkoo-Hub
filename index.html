@@ -392,63 +392,45 @@
             </div>
 
             <div class="card">
-                <div class="card-title">
-                    <i class="fa-solid fa-link"></i> Pautan Ahli Rasmi
-                </div>
-                <div class="grid-links">
-                    <a href="https://s-my.linkooglobal.com/zFi9OjJmT3" target="_blank" class="action-card-btn">
-                        <i class="fa-solid fa-basket-shopping icon-shopee"></i>
-                        <span>Pautan Shopee & Lazada Cashback</span>
-                    </a>
-                    <a href="https://s-my.linkooglobal.com/UqnqhzM9eu" target="_blank" class="action-card-btn">
-                        <i class="fa-solid fa-user-plus icon-spark"></i>
-                        <span>Pautan Pendaftaran Ahli (Spark)</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="card">
     <div class="card-title">
         <i class="fa-solid fa-circle-play"></i> Panduan Video Tutorial
     </div>
-    <div class="grid-links-vertical">
-        <a id="vlink1" href="https://www.youtube.com" target="_blank" class="action-card-btn-vertical">
-            <i class="fa-brands fa-youtube icon-youtube"></i>
-            <span>Panduan 1</span>
+    
+    <div class="video-grid">
+        <a id="vlink1" href="https://www.youtube.com" target="_blank" class="video-btn">
+            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 1.8rem;"></i>
+            <span style="color: #ffffff;">Panduan 1</span>
         </a>
-        <a id="vlink2" href="https://www.youtube.com" target="_blank" class="action-card-btn-vertical">
-            <i class="fa-brands fa-youtube icon-youtube"></i>
-            <span>Panduan 2</span>
+        <a id="vlink2" href="https://www.youtube.com" target="_blank" class="video-btn">
+            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 1.8rem;"></i>
+            <span style="color: #ffffff;">Panduan 2</span>
         </a>
-        <a id="vlink3" href="https://www.youtube.com" target="_blank" class="action-card-btn-vertical">
-            <i class="fa-brands fa-youtube icon-youtube"></i>
-            <span>Panduan 3</span>
+        <a id="vlink3" href="https://www.youtube.com" target="_blank" class="video-btn">
+            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 1.8rem;"></i>
+            <span style="color: #ffffff;">Panduan 3</span>
         </a>
     </div>
 </div>
 
 <style>
-    /* Tambahkan CSS ini di bahagian <style> fail anda */
-    .grid-links-vertical {
+    .video-grid {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
     }
-    .action-card-btn-vertical {
+    .video-btn {
         display: flex;
         align-items: center;
-        padding: 15px;
         background-color: #0d2e2e;
         border: 1px solid #123d3d;
+        padding: 18px;
         border-radius: 12px;
-        color: #e2e8f0;
         text-decoration: none;
-        font-weight: 600;
         gap: 15px;
+        transition: background 0.3s;
     }
-    .action-card-btn-vertical i {
-        font-size: 1.5rem;
-        color: #ef4444;
+    .video-btn:hover {
+        background-color: #164040;
     }
 </style>
 
