@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #00a896;
+            --bg-body: #030d0d;
+            --bg-container: #051414;
+            --bg-card: #091f1f;
+            --border-color: #123d3d;
+            --text-main: #e2e8f0;
+            --text-accent: #00e5cf;
+            --text-yellow: #ffcc00;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-main); display: flex; justify-content: center; min-height: 100vh; }
+        
+        .phone-container { 
+            width: 100%; max-width: 480px; background-color: var(--bg-container); 
+            min-height: 100vh; position: relative; padding-bottom: 90px;
+            display: flex; flex-direction: column; box-shadow: 0 0 35px rgba(0, 0, 0, 0.8); 
+        }
+        
+        .app-header { background: linear-gradient(135deg, #026666, #00a896); color: #ffffff; padding: 25px 20px; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+        .app-content { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; }
+        
+        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 15px; }
+        .card-title { font-size: 0.9rem; font-weight: 600; color: var(--text-accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        
+        .input-field { width: 100%; padding: 10px; background: #000; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; font-size: 0.8rem; margin-bottom: 10px; }
+        label { font-size: 0.75rem; color: var(--text-yellow); display: block; margin-bottom: 4px; }
+        .btn-save { background: #00a896; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.85rem; margin-top: 5px; }
+        
+        /* Senarai PDF Terkini */
+        .pdf-manager-list { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .manager-item { display: flex; justify-content: space-between; align-items: center; background: #000; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); }
+        .manager-item span { font-size: 0.8rem; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; }
+        .btn-delete { background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
+
+        /* Bottom Navbar */
+        .bottom-navbar { 
+            position: absolute; bottom: 0; left: 0; width: 100%; background-color: #041010; 
+            border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100; 
+        }
+        .nav-link-item { display: flex; flex-direction: column; align-items: center; color: #527a7a; font-size: 0.72rem; text-decoration: none; flex: 1; gap: 3px; }
+        .nav-link-item.active { color: var(--text-accent); font-weight: 700; }
+        .nav-link-item i { font-size: 1.25rem; }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <header class="app-header">
+            <h2>ADMIN PANEL</h2>
+            <p>Pengurusan Kandungan Aplikasi</p>
+        </header>
+
+        <div class="app-content">
+            <!-- Borang Sekatan Masuk Admin -->
+            <div id="adminAuth" class="card" style="text-align: center; padding: 30px 15px;">
+                <i class="fa-solid fa-user-lock" style="font-size: 2.5rem; color:var(--text-yellow); margin-bottom:10px;"></i>
+                <h3>Sistem Pemilik Sahaja</h3>
+                <input type="password" id="adminPassword" class="input-field" style="text-align:center; margin-top:15px;" placeholder="Masukkan Pasword Admin">
+                <button onclick="verifyAdmin()" class="btn-save">Log Masuk</button>
+            </div>
+
+            <!-- Panel Kawalan Dinamik -->
+            <div id="adminConsole" style="display: none;">
+                <!-- Mengemas Kini Video -->
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-video"></i> Kemas Kini Pautan Video</div>
+                    <label>URL Video 1</label>
+                    <input type="text" id="v1" class="input-field" placeholder="https://youtube.com/...">
+                    <label>URL Video 2</label>
+                    <input type="text" id="v2" class="input-field" placeholder="https://youtube.com/...">
+                    <label>URL Video 3</label>
+                    <input type="text" id="v3" class="input-field" placeholder="https://youtube.com/...">
+                    <button onclick="saveVideos()" class="btn-save">Simpan Pautan Video</button>
+                </div>
+
+                <!-- Mengemas Kini Flyer -->
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-image"></i> Kemas Kini Pautan Imej Flyer</div>
+                    <label>URL Gambar Flyer 1</label>
+                    <input type="text" id="f1" class="input-field" placeholder="https://i.postimg.cc/...">
+                    <label>URL Gambar Flyer 2</label>
+                    <input type="text" id="f2" class="input-field" placeholder="https://i.postimg.cc/...">
+                    <label>URL Gambar Flyer 3</label>
+                    <input type="text" id="f3" class="input-field" placeholder="https://i.postimg.cc/...">
+                    <button onclick="saveFlyers()" class="btn-save">Simpan Gambar Flyer</button>
+                </div>
+
+                <!-- Mengemas Kini PDF Tanpa Had Slot -->
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-file-arrow-up"></i> Urus Fail PDF Pembelajaran</div>
+                    <label>Nama Fail / Tajuk Nota</label>
+                    <input type="text" id="pdfName" class="input-field" placeholder="Contoh: LINKOO TRAINING (BM)">
+                    <label>Pautan / Link Google Drive Fail</label>
+                    <input type="text" id="pdfUrl" class="input-field" placeholder="https://drive.google.com/file/d/...">
+                    <button onclick="savePdfLink()" class="btn-save" style="background:#ffcc00; color:#000;">Tambah Fail ke Senarai</button>
+                    
+                    <!-- Senarai Semakan Admin -->
+                    <div class="pdf-manager-list" id="adminPdfList">
+                        <p style="font-size:0.75rem; color:#666; text-align:center;">Tiada fail dalam senarai.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-navbar">
+            <a href="index.html" class="nav-link-item"><i class="fa-solid fa-house"></i><span>Utama</span></a>
+            <a href="academy.html" class="nav-link-item"><i class="fa-solid fa-graduation-cap"></i><span>Academy</span></a>
+            <a href="dashboard.html" class="nav-link-item active"><i class="fa-solid fa-user-gear"></i><span>Admin</span></a>
+        </nav>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = "Pinet.v2";
+
+        function verifyAdmin() {
+            let pw = document.getElementById('adminPassword').value;
+            if(pw === ADMIN_PASSWORD) {
+                document.getElementById('adminAuth').style.display = 'none';
+                document.getElementById('adminConsole').style.display = 'block';
+                
+                if(localStorage.getItem('video1')) document.getElementById('v1').value = localStorage.getItem('video1');
+                if(localStorage.getItem('video2')) document.getElementById('v2').value = localStorage.getItem('video2');
+                if(localStorage.getItem('video3')) document.getElementById('v3').value = localStorage.getItem('video3');
+                if(localStorage.getItem('flyer1')) document.getElementById('f1').value = localStorage.getItem('flyer1');
+                if(localStorage.getItem('flyer2')) document.getElementById('f2').value = localStorage.getItem('flyer2');
+                if(localStorage.getItem('flyer3')) document.getElementById('f3').value = localStorage.getItem('flyer3');
+                
+                renderAdminPdfs();
+            } else {
+                alert("Pasword Admin Salah!");
+            }
+        }
+
+        function saveVideos() {
+            localStorage.setItem('video1', document.getElementById('v1').value);
+            localStorage.setItem('video2', document.getElementById('v2').value);
+            localStorage.setItem('video3', document.getElementById('v3').value);
+            alert("Pautan video berjaya dikemaskini!");
+        }
+
+        function saveFlyers() {
+            localStorage.setItem('flyer1', document.getElementById('f1').value);
+            localStorage.setItem('flyer2', document.getElementById('f2').value);
+            localStorage.setItem('flyer3', document.getElementById('f3').value);
+            alert("Gambar flyer berjaya dikemaskini!");
+        }
+
+        // FUNGSI DINAMIK BARU (TANPA HAD SLOT)
+        function savePdfLink() {
+            let nameInput = document.getElementById('pdfName').value.trim();
+            let urlInput = document.getElementById('pdfUrl').value.trim();
+
+            if(!nameInput || !urlInput) {
+                alert("Sila isi kedua-dua ruangan Nama dan Pautan PDF.");
+                return;
+            }
+
+            let pdfData = { name: nameInput, data: urlInput };
+            let currentPdfs = JSON.parse(localStorage.getItem('pdfFiles')) || [];
+            
+            currentPdfs.push(pdfData);
+            localStorage.setItem('pdfFiles', JSON.stringify(currentPdfs));
+            
+            alert("Berjaya menambah '" + nameInput + "'!");
+            document.getElementById('pdfName').value = "";
+            document.getElementById('pdfUrl').value = "";
+            renderAdminPdfs();
+        }
+
+        function renderAdminPdfs() {
+            let pdfs = JSON.parse(localStorage.getItem('pdfFiles')) || [];
+            let container = document.getElementById('adminPdfList');
+            if(pdfs.length > 0) {
+                let html = `<p style="font-size:0.75rem; color:var(--text-accent); margin-bottom:8px;">Senarai Fail Aktif (${pdfs.length}):</p>`;
+                pdfs.forEach((pdf, index) => {
+                    html += `
+                        <div class="manager-item">
+                            <span>${index + 1}. ${pdf.name}</span>
+                            <button class="btn-delete" onclick="deletePdf(${index})">Padam</button>
+                        </div>`;
+                });
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = `<p style="font-size:0.75rem; color:#666; text-align:center;">Tiada fail dalam senarai.</p>`;
+            }
+        }
+
+        function deletePdf(index) {
+            if(confirm("Adakah anda pasti mahu memadam fail ini?")) {
+                let pdfs = JSON.parse(localStorage.getItem('pdfFiles')) || [];
+                pdfs.splice(index, 1);
+                localStorage.setItem('pdfFiles', JSON.stringify(pdfs));
+                renderAdminPdfs();
+            }
+        }
+    </script>
+</body>
+</html>
