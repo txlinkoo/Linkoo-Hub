@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linkoo - Store With Cash Back</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <style>
+        /* TAMBAH KOD INI PADA BARIS BERHAMPIRAN 10-15 */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
 
     <style>
         /* Tetapan Pembolehubah Warna Asli Mengikut VS Code Anda */
@@ -540,23 +545,22 @@
         }
     </script>
   <body>
-  <button onclick="signInWithPi()" class="btn-pi">
-    <i class="fa-solid fa-wallet"></i> Sign-In with Pi Browser
-  </button>
+    <button onclick="signInWithPi()" class="btn-pi">
+        <i class="fa-solid fa-wallet"></i> Sign-In with Pi Browser
+    </button>
 
-  <script>
-    async function signInWithPi() {
-      try {
-        // Pastikan Pi SDK sudah dimuatkan di <head>
-        const user = await Pi.authenticate(['username'], onIncompletePaymentFound, onAuthCancelled);
-        alert('Selamat datang, ' + user.username);
-      } catch (err) {
-        console.error('Autentikasi gagal:', err);
-        alert('Login dibatalkan atau gagal.');
-      }
-    }
+    <script>
+        async function signInWithPi() {
+            try {
+                const user = await Pi.authenticate(['username'], onIncompletePaymentFound, onAuthCancelled);
+                alert('Selamat datang, ' + user.username);
+            } catch (err) {
+                console.error('Autentikasi gagal:', err);
+                alert('Login dibatalkan atau gagal.');
+            }
+        }
 
-    function onIncompletePaymentFound(payment) { /* pengendalian pembayaran */ }
-    function onAuthCancelled() { alert('Login dibatalkan oleh pengguna.'); }
-  </script>
+        function onIncompletePaymentFound(payment) { /* pengendalian pembayaran */ }
+        function onAuthCancelled() { alert('Login dibatalkan oleh pengguna.'); }
+    </script>
 </body>
