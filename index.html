@@ -391,23 +391,24 @@
                 </div>
             </div>
 
-            <div class="card">
+            <!-- Panduan Video Tutorial -->
+<div class="card">
     <div class="card-title">
         <i class="fa-solid fa-circle-play"></i> Panduan Video Tutorial
     </div>
     
     <div class="video-grid">
-        <a id="vlink1" href="https://www.youtube.com" target="_blank" class="video-btn">
-            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 1.8rem;"></i>
-            <span style="color: #ffffff;">Panduan 1</span>
+        <a id="vlink1" href="https://www.youtube.com" target="_blank" class="video-btn-large">
+            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 2rem;"></i>
+            <span>Panduan 1</span>
         </a>
-        <a id="vlink2" href="https://www.youtube.com" target="_blank" class="video-btn">
-            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 1.8rem;"></i>
-            <span style="color: #ffffff;">Panduan 2</span>
+        <a id="vlink2" href="https://www.youtube.com" target="_blank" class="video-btn-large">
+            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 2rem;"></i>
+            <span>Panduan 2</span>
         </a>
-        <a id="vlink3" href="https://www.youtube.com" target="_blank" class="video-btn">
-            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 1.8rem;"></i>
-            <span style="color: #ffffff;">Panduan 3</span>
+        <a id="vlink3" href="https://www.youtube.com" target="_blank" class="video-btn-large">
+            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 2rem;"></i>
+            <span>Panduan 3</span>
         </a>
     </div>
 </div>
@@ -418,18 +419,20 @@
         flex-direction: column;
         gap: 12px;
     }
-    .video-btn {
+    .video-btn-large {
         display: flex;
         align-items: center;
         background-color: #0d2e2e;
         border: 1px solid #123d3d;
-        padding: 18px;
+        padding: 25px 20px; /* Padding ditingkatkan untuk kotak lebih besar */
         border-radius: 12px;
         text-decoration: none;
-        gap: 15px;
-        transition: background 0.3s;
+        color: #ffffff;
+        font-weight: 600;
+        gap: 20px;
+        font-size: 1rem;
     }
-    .video-btn:hover {
+    .video-btn-large:hover {
         background-color: #164040;
     }
 </style>
