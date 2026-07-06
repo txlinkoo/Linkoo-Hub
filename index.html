@@ -539,5 +539,24 @@
             });
         }
     </script>
+  <body>
+  <button onclick="signInWithPi()" class="btn-pi">
+    <i class="fa-solid fa-wallet"></i> Sign-In with Pi Browser
+  </button>
+
+  <script>
+    async function signInWithPi() {
+      try {
+        // Pastikan Pi SDK sudah dimuatkan di <head>
+        const user = await Pi.authenticate(['username'], onIncompletePaymentFound, onAuthCancelled);
+        alert('Selamat datang, ' + user.username);
+      } catch (err) {
+        console.error('Autentikasi gagal:', err);
+        alert('Login dibatalkan atau gagal.');
+      }
+    }
+
+    function onIncompletePaymentFound(payment) { /* pengendalian pembayaran */ }
+    function onAuthCancelled() { alert('Login dibatalkan oleh pengguna.'); }
+  </script>
 </body>
-</html>
