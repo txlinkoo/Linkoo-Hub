@@ -9,6 +9,31 @@
     
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
+<script>
+    // Inisialisasi SDK
+    const Pi = window.Pi;
+    Pi.init({ version: "2.0" });
+
+    // Fungsi untuk memanggil Auth
+    async function authUser() {
+        try {
+            const scopes = ['username', 'roles'];
+            const user = await Pi.authenticate(scopes, onIncompletePaymentFound);
+            alert("Berjaya log masuk: " + user.username);
+        } catch (err) {
+            console.error(err);
+            alert("Gagal log masuk: " + err);
+        }
+    }
+
+    function onIncompletePaymentFound(payment) {
+        // Logik untuk menangani pembayaran yang belum selesai
+    }
+</script>
+<style>
+    /* Tetapan Pembolehubah Warna Asli Mengikut VS Code Anda */
+    :root {
+    ...
     <style>
         /* Tetapan Pembolehubah Warna Asli Mengikut VS Code Anda */
         :root {
@@ -358,10 +383,10 @@
 
         <div class="app-content">
 
-            <button class="btn-pi-auth" id="btnPiSignIn" onclick="authPiNetwork()">
-                <i class="fa-solid fa-wallet"></i> Sign-In with Pi Browser
-            </button>
-
+            
+<button onclick="authUser()" style="background-color: #5636b8; color: white; padding: 18px; border-radius: 12px; text-align: center; font-weight: bold; margin-bottom: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 2px solid #4a2da0; width: 100%; cursor: pointer;">
+    <i class="fa-brands fa-pi" style="margin-right: 10px;"></i> Sign in with Pi Browser
+</button>
             <div class="card">
                 <div class="card-title yellow-theme">
                     <i class="fa-solid fa-circle-info"></i> Profil Ringkas Global (Pi2Day Active)
