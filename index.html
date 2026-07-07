@@ -16,16 +16,16 @@
 
     // Fungsi untuk memanggil Auth
     async function authUser() {
-        try {
-            const scopes = ['username', 'roles'];
-            const user = await Pi.authenticate(scopes, onIncompletePaymentFound);
-            alert("Berjaya log masuk: " + user.username);
-        } catch (err) {
-            console.error(err);
-            alert("Gagal log masuk: " + err);
-        }
+    alert("Butang ditekan!"); // Ujian untuk melihat sama ada butang berfungsi
+    try {
+        const scopes = ['username', 'roles'];
+        const user = await Pi.authenticate(scopes, onIncompletePaymentFound);
+        alert("Berjaya! User: " + user.username); 
+    } catch (err) {
+        alert("Ralat: " + err.message); // Jika ada error, ia akan dipaparkan di sini
+        console.error(err);
     }
-
+}
     function onIncompletePaymentFound(payment) {
         // Logik untuk menangani pembayaran yang belum selesai
     }
