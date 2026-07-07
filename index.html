@@ -1,33 +1,28 @@
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-    <meta charset="UTF-8">
-    <title>Linkoo</title>
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    <style>
-        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: sans-serif; }
-        button { padding: 15px 30px; font-size: 16px; cursor: pointer; }
-    </style>
-</head>
-<body>
-
-    <button onclick="testPi()">Sign in with Pi Browser</button>
-
-    <script>
-        // BARIS 18: Inisialisasi SDK
-        window.Pi.init({ version: "2.0" });
-
-        // BARIS 21: Fungsi Autentikasi
-        async function testPi() {
-    console.log("Butang ditekan"); // Cek di console
-    alert("Butang dikesan!"); // Cek jika butang berfungsi
-    try {
-        const user = await window.Pi.authenticate(['username'], {});
-        alert("Berjaya: " + user.username);
-    } catch (err) {
-        alert("Error: " + err.message);
+<script>
+    // Fungsi untuk memaparkan log di skrin (supaya anda boleh baca tanpa PC)
+    function log(msg) {
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        document.body.appendChild(div);
     }
-}
-    </script>
-</body>
-</html>
+
+    log("Script bermula...");
+
+    // Cek jika Pi SDK wujud
+    if (typeof Pi === 'undefined') {
+        log("<b style='color:red'>RALAT: Pi SDK tidak dimuatkan!</b>");
+    } else {
+        log("Pi SDK dikesan.");
+        window.Pi.init({ version: "2.0" });
+    }
+
+    async function testPi() {
+        try {
+            log("Mencuba autentikasi...");
+            const user = await window.Pi.authenticate(['username'], {});
+            alert("Berjaya: " + user.username);
+        } catch (err) {
+            log("<b style='color:red'>RALAT SDK: " + err.message + "</b>");
+        }
+    }
+</script>
