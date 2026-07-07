@@ -5,26 +5,29 @@
     <title>Linkoo</title>
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <style>
-        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: sans-serif; }
+        button { padding: 15px 30px; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
+
     <button onclick="testPi()">Sign in with Pi Browser</button>
 
     <script>
-    alert("Script bermula"); // Uji jika skrip berjalan
-    window.Pi.init({ version: "2.0" });
-    alert("Pi init selesai"); // Uji jika SDK berjaya init
+        // BARIS 18: Inisialisasi SDK
+        window.Pi.init({ version: "2.0" });
 
-    async function testPi() {
-        alert("Butang ditekan"); // Uji jika butang berfungsi
-        try {
-            const user = await window.Pi.authenticate(['username'], {});
-            alert("Berjaya: " + user.username);
-        } catch (err) {
-            alert("Ralat: " + err.message);
+        // BARIS 21: Fungsi Autentikasi
+        async function testPi() {
+            try {
+                // Meminta kebenaran autentikasi
+                const user = await window.Pi.authenticate(['username'], {});
+                alert("Berjaya: " + user.username);
+            } catch (err) {
+                // Jika gagal, mesej ralat akan dipaparkan
+                alert("Ralat SDK: " + err.message);
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
