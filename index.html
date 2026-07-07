@@ -1,37 +1,28 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h1>Ujian Autentikasi</h1>
-    <button id="authBtn" style="padding: 20px;">UJI PI AUTH</button>
-    <div id="debug" style="margin-top: 20px; color: red; font-family: monospace;"></div>
+    <button id="btn" style="padding: 20px;">UJI PI AUTH</button>
+    <div id="log" style="margin-top: 10px; color: blue;"></div>
 
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <script>
-        const debugDiv = document.getElementById('debug');
-        
-        // Fungsi untuk tulis ralat ke skrin
-        function showDebug(msg) {
-            debugDiv.innerHTML += msg + "<br>";
-        }
+        const btn = document.getElementById('btn');
+        const log = document.getElementById('log');
 
-        document.getElementById('authBtn').addEventListener('click', async () => {
-            showDebug("Butang ditekan. Memulakan...");
-            try {
-                if (typeof Pi === 'undefined') {
-                    throw new Error("SDK Pi tidak dimuatkan!");
-                }
-                
-                showDebug("Memanggil Pi.init()...");
-                await window.Pi.init({ version: "2.0" });
-                
-                showDebug("Memanggil Pi.authenticate()...");
-                const user = await window.Pi.authenticate(['username'], {});
-                
-                alert("Berjaya! Username: " + user.username);
-                showDebug("Berjaya!");
-            } catch (err) {
-                showDebug("RALAT: " + err.message);
-                console.error(err);
+        btn.addEventListener('click', () => {
+            log.innerText = "Butang ditekan...";
+            
+            // Menggunakan window.Pi secara terus
+            if (window.Pi) {
+                window.Pi.authenticate(['username'], {})
+                .then(user => {
+                    alert("Berjaya! Nama: " + user.username);
+                })
+                .catch(err => {
+                    log.innerHTML = "<b style='color:red'>RALAT: " + err + "</b>";
+                });
+            } else {
+                log.innerHTML = "<b style='color:red'>RALAT: SDK Pi tidak dikesan!</b>";
             }
         });
     </script>
