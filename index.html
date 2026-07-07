@@ -17,14 +17,14 @@
             try {
                 statusDiv.innerText = "Sedang mengesahkan...";
                 
-                const user = await window.Pi.authenticate(['username'], {});
-                
-                alert("Berjaya! Nama: " + user.username);
-                statusDiv.innerText = "Berjaya: " + user.username;
-            } catch (err) {
-                statusDiv.innerHTML = "<b style='color:red'>RALAT: " + err.message + "</b>";
-            }
-        });
+                const user = await window.Pi.authenticate(['username'], {
+    onIncompletePaymentFound: (payment) => {
+        alert("Pembayaran belum selesai.");
+    }
+}).catch(err => {
+    // Ini akan memberitahu kita jika ada ralat tersembunyi
+    document.getElementById('status').innerHTML = "<b style='color:red'>RALAT AUTH: " + err.message + "</b>";
+});
     </script>
 </body>
 </html>
