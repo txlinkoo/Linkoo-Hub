@@ -19,15 +19,15 @@
 
         // BARIS 21: Fungsi Autentikasi
         async function testPi() {
-            try {
-                // Meminta kebenaran autentikasi
-                const user = await window.Pi.authenticate(['username'], {});
-                alert("Berjaya: " + user.username);
-            } catch (err) {
-                // Jika gagal, mesej ralat akan dipaparkan
-                alert("Ralat SDK: " + err.message);
-            }
-        }
+    console.log("Butang ditekan"); // Cek di console
+    alert("Butang dikesan!"); // Cek jika butang berfungsi
+    try {
+        const user = await window.Pi.authenticate(['username'], {});
+        alert("Berjaya: " + user.username);
+    } catch (err) {
+        alert("Error: " + err.message);
+    }
+}
     </script>
 </body>
 </html>
