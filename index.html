@@ -4,103 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linkoo - Store With Cash Back</title>
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
-    <button onclick="authUser()">Sign in with Pi Browser</button>
-
-    <script>
-        // 2. Inisialisasi SDK
-        window.Pi.init({ version: "2.0" });
-
-        // 3. Fungsi Autentikasi
-        async function authUser() {
-            try {
-                const scopes = ['username', 'roles'];
-                const user = await window.Pi.authenticate(scopes, {});
-                alert("Berjaya! User: " + user.username);
-            } catch (err) {
-                alert("Ralat: " + err.message);
-                console.error(err);
-            }
-        }
-    </script>
-</body>
-</html>
-    // 1. Memastikan SDK sedia sebelum menjalankan apa-apa
-window.addEventListener("DOMContentLoaded", () => {
-    if (window.Pi) {
-        window.Pi.init({ version: "2.0" });
-        console.log("Pi SDK initialized");
-    }
-});
-
-// 2. Fungsi Autentikasi yang diperkemas
-async function authUser() {
-    try {
-        // Memastikan Pi objek wujud sebelum memanggil fungsi
-        if (!window.Pi) throw new Error("SDK Pi belum dimuatkan.");
-
-        const scopes = ['username', 'roles'];
-        
-        // Memanggil Pi.authenticate dengan struktur objek yang betul
-        const user = await window.Pi.authenticate(scopes, {
-            onIncompletePaymentFound: function(payment) {
-                console.log("Pembayaran belum selesai:", payment);
-            }
-        });
-        
-        alert("Berjaya! User: " + user.username);
-    } catch (err) {
-        alert("Ralat: " + err.message);
-        console.error("Detail Ralat:", err);
-    }
-}
-        // 2. Gunakan struktur objek untuk parameter kedua
-        const user = await Pi.authenticate(scopes, {
-            onIncompletePaymentFound: function(payment) {
-                console.log("Pembayaran belum selesai ditemui:", payment);
-                // Panggil fungsi anda di sini
-                onIncompletePaymentFound(payment);
-            }
-        });
-
-        alert("Berjaya! User: " + user.username);
-    } catch (err) {
-        // 3. Tangkapan ralat yang lebih spesifik
-        alert("Ralat Autentikasi: " + err.message);
-        console.error("Detail Ralat:", err);
-    }
-}
-        try {
-            const user = await window.Pi.authenticate(['username', 'roles'], {});
-            alert("Berjaya! User: " + user.username);
-        } catch (err) {
-            alert("Ralat: " + err.message);
-        }
-    }
-</script>
-    function onIncompletePaymentFound(payment) {
-        // Logik untuk menangani pembayaran yang belum selesai
-    }
-</script>
-<style>
-    /* Tetapan Pembolehubah Warna Asli Mengikut VS Code Anda */
-    :root {
-    ...
     <style>
         /* Tetapan Pembolehubah Warna Asli Mengikut VS Code Anda */
         :root {
@@ -449,10 +357,11 @@ async function authUser() {
         </header>
 
         <div class="app-content">
-          
-<button id="btnPiSignIn" onclick="authUser()" style="background-color: #5636b8; color: white; padding: 18px; border-radius: 12px; text-align: center; font-weight: bold; margin-bottom: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 2px solid #4a2da0; width: 100%; cursor: pointer;">
-    <i class="fa-brands fa-pi" style="margin-right: 10px;"></i> Sign in with Pi Browser
-</button>
+
+            <button class="btn-pi-auth" id="btnPiSignIn" onclick="authPiNetwork()">
+                <i class="fa-solid fa-wallet"></i> Sign-In with Pi Browser
+            </button>
+
             <div class="card">
                 <div class="card-title yellow-theme">
                     <i class="fa-solid fa-circle-info"></i> Profil Ringkas Global (Pi2Day Active)
