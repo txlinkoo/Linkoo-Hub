@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <button id="btn" style="padding: 20px;">UJI PI AUTH</button>
-    <div id="log" style="margin-top: 10px; color: blue;"></div>
+    <button id="authBtn" style="padding: 20px;">UJI PI AUTH</button>
+    <div id="status" style="margin-top: 20px;"></div>
 
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <script>
-        const btn = document.getElementById('btn');
-        const log = document.getElementById('log');
+        const statusDiv = document.getElementById('status');
+        
+        // 1. Jalankan Init SEGERA apabila halaman dimuatkan
+        window.Pi.init({ version: "2.0", sandbox: false });
+        statusDiv.innerText = "SDK Diinisialisasi.";
 
-        btn.addEventListener('click', () => {
-            log.innerText = "Butang ditekan...";
-            
-            // Menggunakan window.Pi secara terus
-            if (window.Pi) {
-                window.Pi.authenticate(['username'], {})
-                .then(user => {
-                    alert("Berjaya! Nama: " + user.username);
-                })
-                .catch(err => {
-                    log.innerHTML = "<b style='color:red'>RALAT: " + err + "</b>";
-                });
-            } else {
-                log.innerHTML = "<b style='color:red'>RALAT: SDK Pi tidak dikesan!</b>";
+        // 2. Fungsi Auth hanya dipanggil BILA butang ditekan
+        document.getElementById('authBtn').addEventListener('click', async () => {
+            try {
+                statusDiv.innerText = "Sedang mengesahkan...";
+                
+                const user = await window.Pi.authenticate(['username'], {});
+                
+                alert("Berjaya! Nama: " + user.username);
+                statusDiv.innerText = "Berjaya: " + user.username;
+            } catch (err) {
+                statusDiv.innerHTML = "<b style='color:red'>RALAT: " + err.message + "</b>";
             }
         });
     </script>
