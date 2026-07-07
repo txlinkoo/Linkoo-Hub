@@ -10,26 +10,59 @@
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
 <script>
-    // Inisialisasi SDK
-    const Pi = window.Pi;
-    Pi.init({ version: "2.0" });
+    // 1. Memastikan SDK sedia sebelum menjalankan apa-apa
+window.addEventListener("DOMContentLoaded", () => {
+    if (window.Pi) {
+        window.Pi.init({ version: "2.0" });
+        console.log("Pi SDK initialized");
+    }
+});
 
-    // Fungsi untuk memanggil Auth
-    async function authUser() {
+// 2. Fungsi Autentikasi yang diperkemas
+async function authUser() {
     try {
-        // Cuba panggil fungsi authenticate
-        const user = await Pi.authenticate(['username', 'roles'], {
+        // Memastikan Pi objek wujud sebelum memanggil fungsi
+        if (!window.Pi) throw new Error("SDK Pi belum dimuatkan.");
+
+        const scopes = ['username', 'roles'];
+        
+        // Memanggil Pi.authenticate dengan struktur objek yang betul
+        const user = await window.Pi.authenticate(scopes, {
             onIncompletePaymentFound: function(payment) {
-                console.log("Payment found:", payment);
+                console.log("Pembayaran belum selesai:", payment);
             }
         });
+        
         alert("Berjaya! User: " + user.username);
     } catch (err) {
-        // Jika ada ralat, kita akan tahu puncanya di sini
-        alert("Ralat Autentikasi: " + err.message);
-        console.error("Error details:", err);
+        alert("Ralat: " + err.message);
+        console.error("Detail Ralat:", err);
     }
 }
+        // 2. Gunakan struktur objek untuk parameter kedua
+        const user = await Pi.authenticate(scopes, {
+            onIncompletePaymentFound: function(payment) {
+                console.log("Pembayaran belum selesai ditemui:", payment);
+                // Panggil fungsi anda di sini
+                onIncompletePaymentFound(payment);
+            }
+        });
+
+        alert("Berjaya! User: " + user.username);
+    } catch (err) {
+        // 3. Tangkapan ralat yang lebih spesifik
+        alert("Ralat Autentikasi: " + err.message);
+        console.error("Detail Ralat:", err);
+    }
+}
+        try {
+            const user = await window.Pi.authenticate(['username', 'roles'], {});
+            alert("Berjaya! User: " + user.username);
+        } catch (err) {
+            alert("Ralat: " + err.message);
+        }
+    }
+</script>
     function onIncompletePaymentFound(payment) {
         // Logik untuk menangani pembayaran yang belum selesai
     }
