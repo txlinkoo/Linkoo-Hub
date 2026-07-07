@@ -4,12 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linkoo - Store With Cash Back</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 
-<script>
+    <button onclick="authUser()">Sign in with Pi Browser</button>
+
+    <script>
+        // 2. Inisialisasi SDK
+        window.Pi.init({ version: "2.0" });
+
+        // 3. Fungsi Autentikasi
+        async function authUser() {
+            try {
+                const scopes = ['username', 'roles'];
+                const user = await window.Pi.authenticate(scopes, {});
+                alert("Berjaya! User: " + user.username);
+            } catch (err) {
+                alert("Ralat: " + err.message);
+                console.error(err);
+            }
+        }
+    </script>
+</body>
+</html>
     // 1. Memastikan SDK sedia sebelum menjalankan apa-apa
 window.addEventListener("DOMContentLoaded", () => {
     if (window.Pi) {
