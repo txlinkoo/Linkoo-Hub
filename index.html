@@ -1,28 +1,52 @@
-<script>
-    // Fungsi untuk memaparkan log di skrin (supaya anda boleh baca tanpa PC)
-    function log(msg) {
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        document.body.appendChild(div);
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linkoo Debug</title>
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; word-wrap: break-word; }
+        .error { color: red; font-weight: bold; border: 1px solid red; padding: 10px; margin-top: 10px; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Status Linkoo:</h1>
+    <div id="status">Memulakan...</div>
 
-    log("Script bermula...");
-
-    // Cek jika Pi SDK wujud
-    if (typeof Pi === 'undefined') {
-        log("<b style='color:red'>RALAT: Pi SDK tidak dimuatkan!</b>");
-    } else {
-        log("Pi SDK dikesan.");
-        window.Pi.init({ version: "2.0" });
-    }
-
-    async function testPi() {
-        try {
-            log("Mencuba autentikasi...");
-            const user = await window.Pi.authenticate(['username'], {});
-            alert("Berjaya: " + user.username);
-        } catch (err) {
-            log("<b style='color:red'>RALAT SDK: " + err.message + "</b>");
+    <script>
+        const statusDiv = document.getElementById('status');
+        
+        function log(msg, isError = false) {
+            statusDiv.innerHTML += `<div class="${isError ? 'error' : 'info'}">${msg}</div>`;
         }
-    }
-</script>
+
+        // Cek SDK
+        if (typeof Pi === 'undefined') {
+            log("RALAT KRITIKAL: Pi SDK tidak dapat dimuatkan!", true);
+        } else {
+            log("Pi SDK berjaya dimuatkan.");
+            try {
+                window.Pi.init({ version: "2.0" });
+                log("Pi.init() berjaya dijalankan.");
+                
+                // Tambah butang untuk testing
+                const btn = document.createElement("button");
+                btn.innerHTML = "UJI PI AUTH";
+                btn.style.padding = "20px";
+                btn.onclick = async () => {
+                    try {
+                        const user = await window.Pi.authenticate(['username'], {});
+                        alert("Berjaya! Username: " + user.username);
+                    } catch (e) {
+                        log("Ralat semasa Authenticate: " + e.message, true);
+                    }
+                };
+                document.body.appendChild(btn);
+                
+            } catch (err) {
+                log("Ralat semasa Pi.init: " + err.message, true);
+            }
+        }
+    </script>
+</body>
+</html>
