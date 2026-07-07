@@ -12,18 +12,19 @@
     <button onclick="testPi()">Sign in with Pi Browser</button>
 
     <script>
-        // BARIS 17: Inisialisasi
-        window.Pi.init({ version: "2.0" });
+    alert("Script bermula"); // Uji jika skrip berjalan
+    window.Pi.init({ version: "2.0" });
+    alert("Pi init selesai"); // Uji jika SDK berjaya init
 
-        // BARIS 20: Fungsi Autentikasi
-        async function testPi() {
-            try {
-                const user = await window.Pi.authenticate(['username'], {});
-                alert("Berjaya: " + user.username);
-            } catch (err) {
-                alert("Ralat SDK: " + err.message);
-            }
+    async function testPi() {
+        alert("Butang ditekan"); // Uji jika butang berfungsi
+        try {
+            const user = await window.Pi.authenticate(['username'], {});
+            alert("Berjaya: " + user.username);
+        } catch (err) {
+            alert("Ralat: " + err.message);
         }
-    </script>
+    }
+</script>
 </body>
 </html>
