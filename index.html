@@ -24,7 +24,10 @@
             --text-accent: #00e5cf;
             --text-yellow: #ffcc00;
         }
-
+/* Sembunyikan butang Sign-In */
+#btnPiSignIn, .btn-pi-auth {
+    display: none !important;
+}
         /* Reset Gaya Asas */
         * {
             margin: 0;
@@ -546,31 +549,31 @@
             console.log("Memuatkan Pi SDK...");
         }
 
-        function authPiNetwork() {
-            const btn = document.getElementById('btnPiSignIn');
-            if (!btn) return;
+        //function authPiNetwork() {
+        //    const btn = document.getElementById('btnPiSignIn');
+        //    if (!btn) return;
             
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Pi...';
-            btn.disabled = true;
+        //    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Pi...';
+        //    btn.disabled = true;
 
-            const scopes = ['username', 'payments', 'wallet_address'];
+        //    const scopes = ['username', 'payments', 'wallet_address'];
 
-            Pi.authenticate(scopes, function(payment) {
-                console.log("Pembayaran tertangguh dijumpai:", payment);
-            })
-            .then(function(auth) {
-                alert("Selamat Datang, " + auth.user.username + "! Log masuk Pi berjaya.");
-                localStorage.setItem('piUser', auth.user.username);
-                btn.innerHTML = '<i class="fa-solid fa-user-check"></i> ' + auth.user.username;
-                btn.style.backgroundColor = '#026666';
-            })
-            .catch(function(error) {
-                alert("Sila buka aplikasi ini di dalam Pi Browser untuk fungsi Sign-In.");
-                console.error(error);
-                btn.innerHTML = '<i class="fa-solid fa-wallet"></i> Sign-In with Pi Browser';
-                btn.disabled = false;
-            });
-        }
+        //    Pi.authenticate(scopes, function(payment) {
+        //        console.log("Pembayaran tertangguh dijumpai:", payment);
+        //    })
+        //    .then(function(auth) {
+        //        alert("Selamat Datang, " + auth.user.username + "! Log masuk Pi berjaya.");
+        //        localStorage.setItem('piUser', auth.user.username);
+        //        btn.innerHTML = '<i class="fa-solid fa-user-check"></i> ' + auth.user.username;
+        //        btn.style.backgroundColor = '#026666';
+        //    })
+        //    .catch(function(error) {
+        //        alert("Sila buka aplikasi ini di dalam Pi Browser untuk fungsi Sign-In.");
+        //        console.error(error);
+        //        btn.innerHTML = '<i class="fa-solid fa-wallet"></i> Sign-In with Pi Browser';
+        //        btn.disabled = false;
+        //   });
+        //}
     </script>
 </body>
 </html>
