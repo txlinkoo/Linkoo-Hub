@@ -7,135 +7,84 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-teal: #00a896;
-            --header-gradient: linear-gradient(135deg, #026666, #00a896);
             --bg-body: #030d0d;
-            --bg-container: #051414;
             --bg-card: #091f1f;
-            --bg-btn-inner: #0d2e2e;
             --border-color: #123d3d;
             --text-main: #e2e8f0;
             --text-accent: #00e5cf;
-            --text-yellow: #ffcc00;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: var(--bg-body); color: var(--text-main); display: flex; justify-content: center; min-height: 100vh; }
-        
-        .phone-container {
-            width: 100%; max-width: 480px; background-color: var(--bg-container);
-            min-height: 100vh; display: flex; flex-direction: column;
-            position: relative; box-shadow: 0 0 35px rgba(0, 0, 0, 0.8); padding-bottom: 80px;
-        }
-
-        .app-header {
-            background: var(--header-gradient); color: #ffffff; padding: 25px 20px; text-align: center;
-            border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
-        }
-
-        .app-content { padding: 16px; display: flex; flex-direction: column; gap: 16px; flex: 1; overflow-y: auto; }
-        
-        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 15px; }
+        body { background-color: var(--bg-body); color: var(--text-main); font-family: sans-serif; margin: 0; padding-bottom: 90px; display: flex; justify-content: center; }
+        .phone-container { width: 100%; max-width: 480px; padding: 20px; box-sizing: border-box; }
+        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 15px; margin-bottom: 20px; }
         .card-title { font-size: 0.9rem; font-weight: 600; color: var(--text-accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         
-        /* Lock Screen */
-        .lock-screen { text-align: center; padding: 40px 20px; }
-        .lock-screen i { font-size: 3rem; color: var(--text-yellow); margin-bottom: 15px; }
-        .input-pw { width: 100%; padding: 12px; background: #000; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; text-align: center; font-size: 1rem; margin-top: 15px; }
-        .btn-submit { background: var(--primary-teal); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; margin-top: 10px; cursor: pointer; font-weight: bold; width: 100%; }
+        .pdf-list-container { display: flex; flex-direction: column; gap: 10px; }
+        .pdf-item { display: flex; align-items: center; padding: 12px; background: #041010; border: 1px solid var(--border-color); border-radius: 8px; text-decoration: none; color: var(--text-main); font-size: 0.85rem; transition: 0.2s; }
+        .pdf-item:hover { border-color: var(--text-accent); }
+        .pdf-item i { font-size: 1.2rem; color: #ff4d4d; margin-right: 12px; }
+        .pdf-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .download-icon { color: var(--text-accent); font-size: 1rem; }
 
-        .pdf-list-container { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
-        .pdf-item { display: flex; align-items: center; gap: 12px; padding: 12px; background-color: var(--bg-btn-inner); border: 1px solid var(--border-color); border-radius: 10px; text-decoration: none; color: var(--text-main); transition: background 0.2s; }
-        .pdf-item:hover { background-color: #123d3d; }
-        .pdf-item i { font-size: 1.6rem; color: #ef4444; }
-
-        /* Bottom Navbar */
-        .bottom-navbar {
-            position: absolute; bottom: 0; left: 0; width: 100%; background-color: #041010;
-            border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100;
-        }
-        .nav-link-item { display: flex; flex-direction: column; align-items: center; color: #527a7a; font-size: 0.72rem; font-weight: 500; text-decoration: none; gap: 3px; flex: 1; }
-        .nav-link-item.active { color: var(--text-accent); font-weight: 700; }
-        .nav-link-item i { font-size: 1.25rem; }
+        /* Navbar */
+        .bottom-navbar { position: fixed; bottom: 0; width: 100%; max-width: 480px; background-color: #041010; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100; }
+        .nav-link-item { display: flex; flex-direction: column; align-items: center; color: #527a7a; text-decoration: none; flex: 1; font-size: 0.75rem; gap: 4px; }
+        .nav-link-item.active { color: var(--text-accent); font-weight: bold; }
+        .nav-link-item i { font-size: 1.2rem; }
     </style>
 </head>
 <body>
-    <div class="phone-container">
-        <header class="app-header">
-            <h2>LINKOO ACADEMY</h2>
-            <p>Zon Pembelajaran Ahli Spark</p>
-        </header>
 
-        <div class="app-content">
-            <!-- Borang Pengesahan Kata Laluan -->
-            <div id="authBlock" class="card lock-screen">
-                <i class="fa-solid fa-lock"></i>
-                <h3>Keahlian Terkunci</h3>
-                <p style="font-size:0.8rem; color:#cbd5e1; margin-top:5px;">Sila masukkan Kata Laluan Spark untuk melihat PDF pembelajaran.</p>
-                <input type="password" id="sparkPassword" class="input-pw" placeholder="Masukkan Pasword">
-                <button onclick="checkAccess()" class="btn-submit">Buka Akses</button>
-            </div>
+<div class="phone-container">
+    <div class="card-title" style="justify-content: center; font-size: 1.2rem; margin-bottom: 20px;">LINKOO ACADEMY</div>
 
-            <!-- Ruang Kandungan PDF pembelajaran -->
-            <div id="contentBlock" class="card" style="display: none;">
-                <div class="card-title"><i class="fa-solid fa-file-pdf"></i> Fail Pembelajaran PDF</div>
-                <div id="pdfList" class="pdf-list-container">
-                    <p style="font-size:0.8rem; color:#aaa; text-align: center; padding: 10px 0;" id="noPdfText">Tiada fail PDF dimuat naik buat masa ini.</p>
-                </div>
-            </div>
+    <!-- Kotak Dokumen Pembelajaran (Sehingga 10 Slot) -->
+    <div class="card">
+        <div class="card-title"><i class="fa-solid fa-graduation-cap"></i> Dokumen Pembelajaran (Khas Ahli Spark)</div>
+        <div id="pdf-display-list" class="pdf-list-container">
+            <!-- Senarai dokumen akan masuk di sini secara dinamik -->
         </div>
-
-        <nav class="bottom-navbar">
-  <a href="index.html" class="nav-link-item">
-    <i class="fa-solid fa-house"></i>
-    <span>Utama</span>
-  </a>
-  <a href="academy.html" class="nav-link-item">
-    <i class="fa-solid fa-graduation-cap"></i>
-    <span>Academy</span>
-  </a>
-  <a href="dashboard.html" class="nav-link-item">
-    <i class="fa-solid fa-user-gear"></i>
-    <span>Admin</span>
-  </a>
-</nav>
     </div>
+</div>
 
-    <script>
-        const SPARK_PASSWORD = "Linkoomember1234";
+<nav class="bottom-navbar">
+    <a href="linkoo-info.html" class="nav-link-item"><i class="fa-solid fa-house"></i><span>Utama</span></a>
+    <a href="academy.html" class="nav-link-item active"><i class="fa-solid fa-graduation-cap"></i><span>Academy</span></a>
+    <a href="dashboard.html" class="nav-link-item"><i class="fa-solid fa-user-gear"></i><span>Admin</span></a>
+</nav>
 
-        function checkAccess() {
-            let input = document.getElementById('sparkPassword').value;
-            if(input === SPARK_PASSWORD) {
-                document.getElementById('authBlock').style.display = 'none';
-                document.getElementById('contentBlock').style.display = 'block';
-                loadPdfs();
-            } else {
-                alert("Kata laluan salah! Hanya keahlian Spark dibenarkan.");
-            }
-        }
+<script>
+    window.onload = function() {
+        // PENTING: Semakan Keahlian Spark (Aktifkan jika sistem login anda sudah siap)
+        // const keahlian = localStorage.getItem('userMembership');
+        // if (keahlian !== 'spark') {
+        //     alert('Akses Ditolak! Halaman ini hanya untuk Keahlian Spark sahaja.');
+        //     window.location.href = 'linkoo-info.html';
+        //     return;
+        // }
 
-        function loadPdfs() {
-            let pdfs = JSON.parse(localStorage.getItem('pdfFiles')) || [];
-            let container = document.getElementById('pdfList');
-            if(pdfs.length > 0) {
-                let currentHtml = "";
-                pdfs.forEach(pdf => {
-                    currentHtml += `
+        const pdfContainer = document.getElementById('pdf-display-list');
+        
+        // Membaca senarai fail PDF daripada localStorage (Array boleh memuatkan lebih 10 fail)
+        const pdfs = JSON.parse(localStorage.getItem('pdfFiles')) || [];
+        
+        if (pdfs.length > 0) {
+            pdfs.forEach((pdf, index) => {
+                // Memastikan kita memaparkan sehingga had slot atau senarai yang ada
+                if (pdf.data && pdf.name) {
+                    pdfContainer.innerHTML += `
                         <a href="${pdf.data}" target="_blank" class="pdf-item">
                             <i class="fa-solid fa-file-pdf"></i>
-                            <div style="flex: 1;">
-                                <h4 style="font-size:0.85rem; font-weight: 600; margin-bottom: 2px;">${pdf.name}</h4>
-                                <p style="font-size:0.72rem; color:#88a3a3;">Klik untuk buka fail di Google Drive</p>
-                            </div>
-                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #527a7a;"></i>
-                        </a>`;
-                });
-                container.innerHTML = currentHtml;
-            } else {
-                container.innerHTML = `<p style="font-size:0.8rem; color:#aaa; text-align: center; padding: 10px 0;">Tiada fail PDF dimuat naik buat masa ini.</p>`;
-            }
+                            <span class="pdf-name">${pdf.name}</span>
+                            <i class="fa-solid fa-circle-down download-icon"></i>
+                        </a>
+                    `;
+                }
+            });
+        } else {
+            pdfContainer.innerHTML = "<p style='font-size:0.85rem; color:#527a7a; text-align:center;'>Tiada dokumen pembelajaran buat masa ini.</p>";
         }
-    </script>
+    };
+</script>
+
 </body>
 </html>
