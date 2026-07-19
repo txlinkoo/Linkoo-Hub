@@ -64,7 +64,7 @@
                 <i class="fa-solid fa-user-lock" style="font-size: 2.5rem; color:var(--text-yellow); margin-bottom:10px;"></i>
                 <h3>Sistem Pemilik Sahaja</h3>
                 <input type="password" id="adminPassword" class="input-field" style="text-align:center; margin-top:15px;" placeholder="Masukkan Pasword Admin">
-                <button onclick="verifyAdmin()" class="btn-save">Log Masuk</button>
+                <button onclick="verifyAdmin(event)" class="btn-save">Log Masuk</button>
             </div>
 
             <!-- Panel Kawalan Dinamik -->
@@ -78,7 +78,8 @@
                     <input type="text" id="v2" class="input-field" placeholder="https://youtube.com/...">
                     <label>URL Video 3</label>
                     <input type="text" id="v3" class="input-field" placeholder="https://youtube.com/...">
-                    <button onclick="saveVideos()" class="btn-save">Simpan Pautan Video</button>
+                    <!-- Tambahkan (event) di dalam kurungan -->
+<button onclick="saveVideos(event)" class="btn-save">Simpan Pautan Video</button>
                 </div>
 
                 <!-- Mengemas Kini Flyer -->
@@ -90,7 +91,7 @@
                     <input type="text" id="f2" class="input-field" placeholder="https://i.postimg.cc/...">
                     <label>URL Gambar Flyer 3</label>
                     <input type="text" id="f3" class="input-field" placeholder="https://i.postimg.cc/...">
-                    <button onclick="saveFlyers()" class="btn-save">Simpan Gambar Flyer</button>
+                    <button onclick="saveFlyers(event)" class="btn-save">Simpan Gambar Flyer</button>
                 </div>
 
                 <!-- Mengemas Kini PDF Tanpa Had Slot -->
@@ -103,7 +104,7 @@
                     <button onclick="savePdfLink()" class="btn-save" style="background:#ffcc00; color:#000;">Tambah Fail ke Senarai</button>
                     
                     <!-- Senarai Semakan Admin -->
-                    <div class="pdf-manager-list" id="adminPdfList">
+                    <button onclick="savePdfLink(event)" class="btn-save" style="background:#ffcc00; color:#000;">Tambah Fail ke Senarai</button>
                         <p style="font-size:0.75rem; color:#666; text-align:center;">Tiada fail dalam senarai.</p>
                     </div>
                 </div>
@@ -129,7 +130,8 @@
     <script>
         const ADMIN_PASSWORD = "Pinet.v2";
 
-        function verifyAdmin() {
+        function verifyAdmin(event) {
+    event.preventDefault();
             let pw = document.getElementById('adminPassword').value;
             if(pw === ADMIN_PASSWORD) {
                 document.getElementById('adminAuth').style.display = 'none';
@@ -148,25 +150,26 @@
             }
         }
 
-        function saveVideos() {
+        function saveVideos(event) { // Tambah 'event'
+            event.preventDefault();  // Tambah baris ini
             localStorage.setItem('video1', document.getElementById('v1').value);
             localStorage.setItem('video2', document.getElementById('v2').value);
             localStorage.setItem('video3', document.getElementById('v3').value);
             alert("Pautan video berjaya dikemaskini!");
         }
 
-        function saveFlyers() {
+        function saveFlyers(event) { // Tambah 'event'
+            event.preventDefault();  // Tambah baris ini
             localStorage.setItem('flyer1', document.getElementById('f1').value);
             localStorage.setItem('flyer2', document.getElementById('f2').value);
             localStorage.setItem('flyer3', document.getElementById('f3').value);
             alert("Gambar flyer berjaya dikemaskini!");
         }
 
-        // FUNGSI DINAMIK BARU (TANPA HAD SLOT)
-        function savePdfLink() {
+        function savePdfLink(event) { // Tambah 'event'
+            event.preventDefault();  // Tambah baris ini
             let nameInput = document.getElementById('pdfName').value.trim();
             let urlInput = document.getElementById('pdfUrl').value.trim();
-
             if(!nameInput || !urlInput) {
                 alert("Sila isi kedua-dua ruangan Nama dan Pautan PDF.");
                 return;
