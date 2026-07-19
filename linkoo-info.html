@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linkoo Info</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-body: #030d0d;
+            --bg-card: #091f1f;
+            --border-color: #123d3d;
+            --text-main: #e2e8f0;
+            --text-accent: #00e5cf;
+            --youtube-red: #ff0000;
+        }
+        
+body { 
+    background-color: var(--bg-body); 
+    color: var(--text-main); 
+    font-family: sans-serif; 
+    margin: 0; 
+    padding-bottom: 90px; 
+    display: flex; 
+    flex-direction: column; /* Tambahkan baris ini */
+    align-items: center;    /* Ini akan memastikan kandungan berada di tengah secara menegak */
+}
+        .phone-container { width: 100%; max-width: 480px; padding: 20px; box-sizing: border-box; }
+        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 15px; margin-bottom: 20px; }
+        .card-title { font-size: 0.9rem; font-weight: 600; color: var(--text-accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .youtube-title { color: #fff; }
+        .youtube-title i { color: var(--youtube-red); font-size: 1.2rem; }
+        .img-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .img-grid img { width: 100%; border-radius: 8px; display: none; border: 1px solid var(--border-color); }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 12px; border: 1px solid var(--border-color); background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        
+        /* Navbar */
+        .bottom-navbar { position: fixed; bottom: 0; width: 100%; max-width: 480px; background-color: #041010; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100; }
+        .nav-link-item { display: flex; flex-direction: column; align-items: center; color: #527a7a; text-decoration: none; flex: 1; font-size: 0.75rem; gap: 4px; }
+        .nav-link-item.active { color: var(--text-accent); font-weight: bold; }
+        .nav-link-item i { font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+<!-- Profil Ringkas Global -->
+    <div class="card" style="border-left: 4px solid #ffc107;">
+        <div class="card-title" style="color: #ffc107; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-circle-info"></i> Profil Ringkas Global (Pi2Day Active)
+        </div>
+        <p style="font-size: 0.85rem; line-height: 1.4; color: #e2e8f0;">
+            Disokong oleh enjin pertumbuhan kecerdasan buatan (AI) <b>Xpand Group</b> yang tersenarai secara rasmi di papan bursa gergasi <b>Nasdaq</b>.
+        </p>
+    </div>
+<div class="phone-container">
+
+    <!-- 1. Header Logo -->
+    <div style="text-align: center; padding: 20px;">
+        <h3 style="color: #fff; font-size: 1.1rem;">% Linkoo Store With Cash Back . Introducing Affiliate Program</h3>
+    </div>
+
+    <!-- 2. Profil Ringkas -->
+    <div class="card">
+        <div class="card-title">
+            <i class="fa-solid fa-circle-info"></i> Profil Ringkas Global (Pi2Day Active)
+        </div>
+        <p style="font-size: 0.9rem; color: #ccc;">
+            Disokong oleh enjin pertumbuhan kecerdasan buatan (AI) Xpand Group yang tersenarai secara rasmi di papan bursa gergasi Nasdaq.
+        </p>
+    </div>
+
+    <!-- 3. Flyer Iklan -->
+    <div class="card">
+        <div class="card-title">
+            <i class="fa-solid fa-image"></i> Flyer Iklan & Promosi (Klik Besar)
+        </div>
+        <div id="flyerContainer" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Data flyer akan dimuatkan di sini oleh JavaScript -->
+        </div>
+    </div>
+
+    <!-- 4. Pautan Ahli Rasmi -->
+    <div class="card">
+        <div class="card-title">
+            <i class="fa-solid fa-link"></i> Pautan Ahli Rasmi
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="URL_SHOPEE_ANDA" target="_blank" class="btn-pautan" style="display: block; text-align: center; padding: 10px; background: #00a896; color: white; border-radius: 8px; text-decoration: none;">
+                <i class="fa-solid fa-basket-shopping"></i> Shopper Cashback
+            </a>
+            <a href="URL_SPARK_ANDA" target="_blank" class="btn-pautan" style="display: block; text-align: center; padding: 10px; background: #00a896; color: white; border-radius: 8px; text-decoration: none;">
+                <i class="fa-solid fa-user-plus"></i> Keahlian (Spark)
+            </a>
+        </div>
+    </div>
+
+    <!-- 5. Panduan Video Tutorial -->
+    <div class="card">
+        <div class="card-title">
+            <i class="fa-brands fa-youtube"></i> Panduan Video Tutorial
+        </div>
+        <div id="video-list" style="display: flex; flex-direction: column; gap: 15px;">
+            <!-- Data video akan dimuatkan di sini oleh JavaScript -->
+        </div>
+    </div>
+
+    <!-- 6. Bottom Navbar -->
+    <nav class="bottom-navbar" style="display: flex; justify-content: space-around; padding: 15px; border-top: 1px solid #333;">
+        <a href="index.html" class="nav-link-item" style="text-decoration: none; color: white; text-align: center;">
+            <i class="fa-solid fa-house"></i><br><span>Utama</span>
+        </a>
+        <a href="academy.html" class="nav-link-item" style="text-decoration: none; color: white; text-align: center;">
+            <i class="fa-solid fa-graduation-cap"></i><br><span>Academy</span>
+        </a>
+        <a href="dashboard.html" class="nav-link-item" style="text-decoration: none; color: white; text-align: center;">
+            <i class="fa-solid fa-user-gear"></i><br><span>Admin</span>
+        </a>
+    </nav>
+
+</div>
+
+<script>
+// Fungsi untuk menukar link YouTube kepada format embed
+    function dapatkanEmbedYouTube(url) {
+        if (!url) return null;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : url;
+    }
+
+    // Fungsi utama untuk memaparkan Flyer dan Video
+    window.onload = function() {
+        // 1. Papar Flyer (Menegak)
+        const fContainer = document.getElementById('flyerContainer');
+        if (fContainer) {
+            let html = '';
+            for (let i = 1; i <= 3; i++) {
+                let url = localStorage.getItem('flyer' + i);
+                if (url && url.trim() !== "") {
+                    html += `<a href="${url}" target="_blank"><img src="${url}" style="width:100%; margin-bottom:10px; border-radius:8px;"></a>`;
+                }
+            }
+            fContainer.innerHTML = html || "<p style='color:#666; text-align:center;'>Tiada flyer.</p>";
+        }
+
+        // 2. Papar Video (Menegak)
+        const vList = document.getElementById('video-list');
+        if (vList) {
+            let vHtml = '';
+            for (let i = 1; i <= 3; i++) {
+                let vUrl = localStorage.getItem('video' + i);
+                if (vUrl && vUrl.trim() !== "") {
+                    vHtml += `<div class="video-container" style="margin-bottom:15px;"><iframe src="${dapatkanEmbedYouTube(vUrl)}" style="width:100%; height:200px; border-radius:8px;" frameborder="0" allowfullscreen></iframe></div>`;
+                }
+            }
+            vList.innerHTML = vHtml || "<p style='color:#527a7a; text-align:center;'>Tiada video tutorial tersedia.</p>";
+        }
+    };
+</body>
+</html>
